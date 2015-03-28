@@ -36,5 +36,6 @@ int main(){
             printf("Tree doesn't have such a key\n");
         }
     }
+    delete tree;
     return 0;
 }
