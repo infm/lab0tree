@@ -1,5 +1,6 @@
 #include "tree.h"
 
+#include <stdio.h>
 #include <algorithm>
 
 Node::Node(int data, Node* parent, bool is_left){
@@ -11,6 +12,7 @@ Node::Node(int data, Node* parent, bool is_left){
         else
             parent -> right = this;
     }
+    left = right = NULL;
 }
 
 Node::~Node(){
@@ -36,29 +38,29 @@ Node* Tree::find(const int key){
         if (key == curr -> data)
             return curr;
         if (key > curr -> data)
-            curr = root -> right;
+            curr = curr -> right;
         else
-            curr = root -> left;
+            curr = curr -> left;
     }
     return curr;
 }
 
 Node* Tree::insert(const int key){
     Node* curr = root;
-    Node* prev = NULL;
+    Node* parent = NULL;
     while (curr){
-        prev = curr;
+        parent = curr;
         if (key > curr -> data)
             curr = curr -> right;
         else
             curr = curr -> left;
     }
-    if (!prev)
+    if (!parent)
         return root = new Node(key, NULL, false);
-    else if (key > prev -> data)
-        return prev -> right = new Node(key, prev, false);
+    else if (key > parent -> data)
+        return parent -> right = new Node(key, parent, false);
     else
-        return prev -> left = new Node(key, prev, true);
+        return parent -> left = new Node(key, parent, true);
 }
 
 void Tree::remove(Node*& node){
@@ -111,4 +113,18 @@ Node* Tree::tree_max(Node* curr){
     while (curr -> right)
         curr = curr -> right;
     return curr;
+}
+
+void Tree::traverse(){
+    traverse(root);
+}
+
+void Tree::traverse(Node* curr){
+    if (curr){
+        if (curr -> left)
+            traverse(curr -> left);
+        printf("%d ", curr -> data);
+        if (curr -> right)
+            traverse(curr -> right);
+    }
 }

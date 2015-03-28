@@ -25,11 +25,15 @@ class Tree {
 
         Node* next(Node*);
         Node* prev(Node*);
+
+        void traverse();
     private:
         Node* root;
 
         Node* tree_min(Node*);
         Node* tree_max(Node*);
+
+        void traverse(Node*);
 };
 
 #endif
