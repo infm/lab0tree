@@ -75,12 +75,14 @@ void Tree::remove(Node*& node){
         } else {
             Node* child = (left) ? left : right;
             if (node -> parent){
-                child -> parent = node -> parent;
+                if (child)
+                    child -> parent = node -> parent;
                 if (node -> parent -> right == node)
                     node -> parent -> right = child;
                 else
                     node -> parent -> left = child;
             } else {
+                child -> parent = NULL;
                 root = child;
             }
         }
