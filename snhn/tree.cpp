@@ -16,10 +16,9 @@ Node::Node(int data, Node* parent, bool is_left){
 }
 
 Node::~Node(){
-    if (NULL != left)
-        free(left);
-    if (NULL != right)
-        free(right);
+    parent = NULL;
+    left = NULL;
+    right = NULL;
 }
 
 Tree::Tree(){
@@ -33,7 +32,7 @@ void post_order_delete(Node* curr){
     if (curr -> right)
         post_order_delete(curr -> right);
 
-    free(curr);
+    delete curr;
 }
 
 Tree::~Tree(){
